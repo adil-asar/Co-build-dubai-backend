@@ -3,7 +3,6 @@ import connectDB from './configs/db.js';
 import userRoutes from './routes/userRoutes.js';
 
 const app = express();
-const PORT = 5000; 
 
 // Middleware
 app.use(express.json());
@@ -14,13 +13,12 @@ connectDB();
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('✅ Backend is running successfully!');
+  res.send('✅ Backend is running successfully on Vercel!');
 });
 
 // API Routes
 app.use('/api/users', userRoutes);
 
-
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
-});
+// ❌ REMOVE app.listen()
+// ✅ Instead, export the app
+export default app;
