@@ -19,6 +19,4 @@ app.get('/', (req, res) => {
 // API Routes
 app.use('/api/users', userRoutes);
 
-// ❌ REMOVE app.listen()
-// ✅ Instead, export the app
 export default app;
