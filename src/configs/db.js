@@ -2,16 +2,13 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect('mongodb://127.0.0.1:27017/cloud-dubai', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const mongoURI = 'mongodb+srv://co-cloud-dubai:CoCloud%40123@cluster0.dabf5.mongodb.net/cloud-dubai?retryWrites=true&w=majority&appName=Cluster0';
 
-
+    const conn = await mongoose.connect(mongoURI);
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`❌ MongoDB Connection Error: ${error.message}`);
-    process.exit(1); 
+    process.exit(1);
   }
 };
 
