@@ -7,7 +7,9 @@ const BASE_URL = 'http://localhost:5000/api/users';
 const testUser = {
   name: 'Test User',
   email: 'test@example.com',
-  phone: '1234567890'
+  phone: '1234567890',
+  entityType: 'organization',
+  question: true
 };
 
 async function testAPI() {
@@ -26,6 +28,7 @@ async function testAPI() {
     
     const createdUser = await createResponse.json();
     console.log('✅ Create User:', createResponse.status, createdUser.message);
+    console.log('📌 Created entityType:', createdUser.data.user.entityType, 'question:', createdUser.data.user.question);
     
     if (!createdUser.success) {
       console.log('❌ Create failed:', createdUser);
@@ -51,7 +54,7 @@ async function testAPI() {
 
     // Test 4: Update User
     console.log('4. Testing UPDATE user...');
-    const updateData = { name: 'Updated Test User' };
+    const updateData = { name: 'Updated Test User', entityType: 'investment', question: false };
     const updateResponse = await fetch(`${BASE_URL}/${userId}`, {
       method: 'PUT',
       headers: {
@@ -62,7 +65,8 @@ async function testAPI() {
     
     const updatedUser = await updateResponse.json();
     console.log('✅ Update User:', updateResponse.status, updatedUser.message);
-    console.log('🔄 Updated name:', updatedUser.data.user.name, '\n');
+    console.log('🔄 Updated name:', updatedUser.data.user.name);
+    console.log('📌 Updated entityType:', updatedUser.data.user.entityType, 'question:', updatedUser.data.user.question, '\n');
 
     // Test 5: Search Users
     console.log('5. Testing SEARCH users...');

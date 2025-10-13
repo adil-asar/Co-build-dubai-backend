@@ -3,7 +3,7 @@ import User from '../../models/User.js';
 
 export const createUser = async (req, res) => {
   try {
-    const { name, email, phone } = req.body;
+    const { name, email, phone, entityType, question } = req.body;
 
     // Validate required fields
     if (!name || !email || !phone) {
@@ -35,7 +35,9 @@ export const createUser = async (req, res) => {
     const newUser = new User({
       name: name.trim(),
       email: email.trim().toLowerCase(),
-      phone: phone.trim()
+      phone: phone.trim(),
+      entityType,
+      question
     });
 
     const savedUser = await newUser.save();

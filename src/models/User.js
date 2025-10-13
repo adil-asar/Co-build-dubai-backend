@@ -21,6 +21,16 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Phone number is required'],
     trim: true,
     match: [/^[\+]?[1-9][\d]{0,15}$/, 'Please enter a valid phone number']
+  },
+  entityType: {
+    type: String,
+    enum: ['organization', 'investment', 'solo-investor'],
+    trim: true,
+    lowercase: true
+  },
+  question: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true, // Adds createdAt and updatedAt fields
@@ -37,6 +47,9 @@ userSchema.pre('save', function(next) {
   this.name = this.name.trim();
   this.email = this.email.trim().toLowerCase();
   this.phone = this.phone.trim();
+  if (this.entityType) {
+    this.entityType = this.entityType.trim().toLowerCase();
+  }
   next();
 });
 
@@ -48,6 +61,8 @@ userSchema.methods.toJSON = function() {
     name: userObject.name,
     email: userObject.email,
     phone: userObject.phone,
+    entityType: userObject.entityType,
+    question: userObject.question,
     createdAt: userObject.createdAt,
     updatedAt: userObject.updatedAt
   };

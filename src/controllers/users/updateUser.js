@@ -4,7 +4,7 @@ import User from '../../models/User.js';
 export const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, email, phone } = req.body;
+    const { name, email, phone, entityType, question } = req.body;
 
     // Validate MongoDB ObjectId
     if (!id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -28,6 +28,8 @@ export const updateUser = async (req, res) => {
     if (name !== undefined) updateData.name = name.trim();
     if (email !== undefined) updateData.email = email.trim().toLowerCase();
     if (phone !== undefined) updateData.phone = phone.trim();
+    if (entityType !== undefined) updateData.entityType = String(entityType).trim().toLowerCase();
+    if (question !== undefined) updateData.question = Boolean(question);
 
     // Check for duplicate email if email is being updated
     if (email && email !== existingUser.email) {
